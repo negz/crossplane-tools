@@ -69,40 +69,6 @@ func (t *Type) GetCondition(ct runtime.ConditionType) runtime.Condition {
 	}
 }
 
-func TestNewSetResourceReference(t *testing.T) {
-	want := `package pkg
-
-import core "example.org/core"
-
-// SetResourceReference of this Type.
-func (t *Type) SetResourceReference(r *core.ObjectReference) {
-	t.Spec.ResourceReference = r
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewSetResourceReference("t", "example.org/core")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewSetResourceReference(): -want, +got\n%s", diff)
-	}
-}
-
-func TestNewGetResourceReference(t *testing.T) {
-	want := `package pkg
-
-import core "example.org/core"
-
-// GetResourceReference of this Type.
-func (t *Type) GetResourceReference() *core.ObjectReference {
-	return t.Spec.ResourceReference
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewGetResourceReference("t", "example.org/core")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewGetResourceReference(): -want, +got\n%s", diff)
-	}
-}
-
 func TestNewSetProviderConfigReference(t *testing.T) {
 	want := `package pkg
 
@@ -137,23 +103,6 @@ func (t *Type) GetProviderConfigReference() *runtime.Reference {
 	}
 }
 
-func TestNewSetWriteConnectionSecretToReference(t *testing.T) {
-	want := `package pkg
-
-import runtime "example.org/runtime"
-
-// SetWriteConnectionSecretToReference of this Type.
-func (t *Type) SetWriteConnectionSecretToReference(r *runtime.SecretReference) {
-	t.Spec.WriteConnectionSecretToReference = r
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewSetWriteConnectionSecretToReference("t", "example.org/runtime")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewSetWriteConnectionSecretToReference(): -want, +got\n%s", diff)
-	}
-}
-
 func TestNewSetPublishConnectionDetailsTo(t *testing.T) {
 	want := `package pkg
 
@@ -171,23 +120,6 @@ func (t *Type) SetPublishConnectionDetailsTo(r *runtime.PublishConnectionDetails
 	}
 }
 
-func TestNewGetWriteConnectionSecretToReference(t *testing.T) {
-	want := `package pkg
-
-import runtime "example.org/runtime"
-
-// GetWriteConnectionSecretToReference of this Type.
-func (t *Type) GetWriteConnectionSecretToReference() *runtime.SecretReference {
-	return t.Spec.WriteConnectionSecretToReference
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewGetWriteConnectionSecretToReference("t", "example.org/runtime")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewGetWriteConnectionSecretToLocalReference(): -want, +got\n%s", diff)
-	}
-}
-
 func TestNewGetPublishConnectionDetailsTo(t *testing.T) {
 	want := `package pkg
 
@@ -202,40 +134,6 @@ func (t *Type) GetPublishConnectionDetailsTo() *runtime.PublishConnectionDetails
 	NewGetPublishConnectionDetailsTo("t", "example.org/runtime")(f, MockObject{Named: "Type"})
 	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
 		t.Errorf("NewGetPublishConnectionDetailsTo(): -want, +got\n%s", diff)
-	}
-}
-
-func TestNewLocalSetWriteConnectionSecretToReference(t *testing.T) {
-	want := `package pkg
-
-import runtime "example.org/runtime"
-
-// SetWriteConnectionSecretToReference of this Type.
-func (t *Type) SetWriteConnectionSecretToReference(r *runtime.LocalSecretReference) {
-	t.Spec.WriteConnectionSecretToReference = r
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewLocalSetWriteConnectionSecretToReference("t", "example.org/runtime")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewSetWriteConnectionSecretToLocalReference(): -want, +got\n%s", diff)
-	}
-}
-
-func TestNewLocalGetWriteConnectionSecretToReference(t *testing.T) {
-	want := `package pkg
-
-import runtime "example.org/runtime"
-
-// GetWriteConnectionSecretToReference of this Type.
-func (t *Type) GetWriteConnectionSecretToReference() *runtime.LocalSecretReference {
-	return t.Spec.WriteConnectionSecretToReference
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewLocalGetWriteConnectionSecretToReference("t", "example.org/runtime")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewGetWriteConnectionSecretToReference(): -want, +got\n%s", diff)
 	}
 }
 
@@ -270,40 +168,6 @@ func (t *Type) GetManagementPolicies() runtime.ManagementPolicies {
 	NewGetManagementPolicies("t", "example.org/runtime")(f, MockObject{Named: "Type"})
 	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
 		t.Errorf("NewGetManagementPolicies(): -want, +got\n%s", diff)
-	}
-}
-
-func TestNewSetDeletionPolicy(t *testing.T) {
-	want := `package pkg
-
-import runtime "example.org/runtime"
-
-// SetDeletionPolicy of this Type.
-func (t *Type) SetDeletionPolicy(r runtime.DeletionPolicy) {
-	t.Spec.DeletionPolicy = r
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewSetDeletionPolicy("t", "example.org/runtime")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewSetDeletionPolicy(): -want, +got\n%s", diff)
-	}
-}
-
-func TestNewGetDeletionPolicy(t *testing.T) {
-	want := `package pkg
-
-import runtime "example.org/runtime"
-
-// GetDeletionPolicy of this Type.
-func (t *Type) GetDeletionPolicy() runtime.DeletionPolicy {
-	return t.Spec.DeletionPolicy
-}
-`
-	f := jen.NewFilePath("pkg")
-	NewGetDeletionPolicy("t", "example.org/runtime")(f, MockObject{Named: "Type"})
-	if diff := cmp.Diff(want, fmt.Sprintf("%#v", f)); diff != "" {
-		t.Errorf("NewGetDeletionPolicy(): -want, +got\n%s", diff)
 	}
 }
 

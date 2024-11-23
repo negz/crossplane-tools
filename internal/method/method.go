@@ -98,28 +98,6 @@ func NewGetCondition(receiver, runtime string) New {
 	}
 }
 
-// NewSetResourceReference returns a NewMethod that writes a
-// SetResourceReference method for the supplied Object to the supplied file.
-func NewSetResourceReference(receiver, core string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("SetResourceReference of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetResourceReference").Params(jen.Id("r").Op("*").Qual(core, "ObjectReference")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("ResourceReference").Op("=").Id("r"),
-		)
-	}
-}
-
-// NewGetResourceReference returns a NewMethod that writes a
-// GetResourceReference method for the supplied Object to the supplied file.
-func NewGetResourceReference(receiver, core string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("GetResourceReference of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetResourceReference").Params().Op("*").Qual(core, "ObjectReference").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("ResourceReference")),
-		)
-	}
-}
-
 // NewSetProviderConfigReference returns a NewMethod that writes a SetProviderConfigReference
 // method for the supplied Object to the supplied file.
 func NewSetProviderConfigReference(receiver, runtime string) New {
@@ -138,30 +116,6 @@ func NewGetProviderConfigReference(receiver, runtime string) New {
 		f.Commentf("GetProviderConfigReference of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetProviderConfigReference").Params().Op("*").Qual(runtime, "Reference").Block(
 			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("ProviderConfigReference")),
-		)
-	}
-}
-
-// NewSetWriteConnectionSecretToReference returns a NewMethod that writes a
-// SetWriteConnectionSecretToReference method for the supplied Object to the
-// supplied file.
-func NewSetWriteConnectionSecretToReference(receiver, runtime string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("SetWriteConnectionSecretToReference of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetWriteConnectionSecretToReference").Params(jen.Id("r").Op("*").Qual(runtime, "SecretReference")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("WriteConnectionSecretToReference").Op("=").Id("r"),
-		)
-	}
-}
-
-// NewGetWriteConnectionSecretToReference returns a NewMethod that writes a
-// GetWriteConnectionSecretToReference method for the supplied Object to the
-// supplied file.
-func NewGetWriteConnectionSecretToReference(receiver, runtime string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("GetWriteConnectionSecretToReference of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetWriteConnectionSecretToReference").Params().Op("*").Qual(runtime, "SecretReference").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("WriteConnectionSecretToReference")),
 		)
 	}
 }
@@ -190,30 +144,6 @@ func NewGetPublishConnectionDetailsTo(receiver, runtime string) New {
 	}
 }
 
-// NewLocalSetWriteConnectionSecretToReference returns a NewMethod that writes a
-// SetWriteConnectionSecretToReference method for the supplied Object to the
-// supplied file.
-func NewLocalSetWriteConnectionSecretToReference(receiver, runtime string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("SetWriteConnectionSecretToReference of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetWriteConnectionSecretToReference").Params(jen.Id("r").Op("*").Qual(runtime, "LocalSecretReference")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("WriteConnectionSecretToReference").Op("=").Id("r"),
-		)
-	}
-}
-
-// NewLocalGetWriteConnectionSecretToReference returns a NewMethod that writes a
-// GetWriteConnectionSecretToReference method for the supplied Object to the
-// supplied file.
-func NewLocalGetWriteConnectionSecretToReference(receiver, runtime string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("GetWriteConnectionSecretToReference of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetWriteConnectionSecretToReference").Params().Op("*").Qual(runtime, "LocalSecretReference").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("WriteConnectionSecretToReference")),
-		)
-	}
-}
-
 // NewSetManagementPolicies returns a NewMethod that writes a SetManagementPolicies
 // method for the supplied Object to the supplied file.
 func NewSetManagementPolicies(receiver, runtime string) New {
@@ -232,28 +162,6 @@ func NewGetManagementPolicies(receiver, runtime string) New {
 		f.Commentf("GetManagementPolicies of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetManagementPolicies").Params().Qual(runtime, "ManagementPolicies").Block(
 			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("ManagementPolicies")),
-		)
-	}
-}
-
-// NewSetDeletionPolicy returns a NewMethod that writes a SetDeletionPolicy
-// method for the supplied Object to the supplied file.
-func NewSetDeletionPolicy(receiver, runtime string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("SetDeletionPolicy of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetDeletionPolicy").Params(jen.Id("r").Qual(runtime, "DeletionPolicy")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("DeletionPolicy").Op("=").Id("r"),
-		)
-	}
-}
-
-// NewGetDeletionPolicy returns a NewMethod that writes a GetDeletionPolicy
-// method for the supplied Object to the supplied file.
-func NewGetDeletionPolicy(receiver, runtime string) New {
-	return func(f *jen.File, o types.Object) {
-		f.Commentf("GetDeletionPolicy of this %s.", o.Name())
-		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetDeletionPolicy").Params().Qual(runtime, "DeletionPolicy").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("DeletionPolicy")),
 		)
 	}
 }

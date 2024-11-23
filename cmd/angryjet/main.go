@@ -28,7 +28,6 @@ import (
 	"github.com/crossplane/crossplane-tools/internal/generate"
 	"github.com/crossplane/crossplane-tools/internal/match"
 	"github.com/crossplane/crossplane-tools/internal/method"
-	"github.com/crossplane/crossplane-tools/internal/types"
 )
 
 const (
@@ -66,7 +65,6 @@ func main() {
 		methodsets          = app.Command("generate-methodsets", "Generate a Crossplane method sets.")
 		headerFile          = methodsets.Flag("header-file", "The contents of this file will be added to the top of all generated files.").ExistingFile()
 		filenameManaged     = methodsets.Flag("filename-managed", "The filename of generated managed resource files.").Default("zz_generated.managed.go").String()
-		filenameResolvers   = methodsets.Flag("filename-resolvers", "The filename of generated reference resolver files.").Default("zz_generated.resolvers.go").String()
 		filenameManagedList = methodsets.Flag("filename-managed-list", "The filename of generated managed list resource files.").Default("zz_generated.managedlist.go").String()
 		filenamePC          = methodsets.Flag("filename-pc", "The filename of generated provider config files.").Default("zz_generated.pc.go").String()
 		filenamePCU         = methodsets.Flag("filename-pcu", "The filename of generated provider config usage files.").Default("zz_generated.pcu.go").String()
@@ -94,7 +92,6 @@ func main() {
 		kingpin.FatalIfError(GenerateProviderConfig(*filenamePC, header, p), "cannot write provider config method set for package %s", p.PkgPath)
 		kingpin.FatalIfError(GenerateProviderConfigUsage(*filenamePCU, header, p), "cannot write provider config usage method set for package %s", p.PkgPath)
 		kingpin.FatalIfError(GenerateProviderConfigUsageList(*filenamePCUList, header, p), "cannot write provider config usage list method set for package %s", p.PkgPath)
-		kingpin.FatalIfError(GenerateReferences(*filenameResolvers, header, p), "cannot write reference resolvers for package %s", p.PkgPath)
 	}
 }
 
@@ -103,18 +100,14 @@ func GenerateManaged(filename, header string, p *packages.Package) error {
 	receiver := "mg"
 
 	methods := method.Set{
-		"SetConditions":                       method.NewSetConditions(receiver, RuntimeImport),
-		"GetCondition":                        method.NewGetCondition(receiver, RuntimeImport),
-		"GetProviderConfigReference":          method.NewGetProviderConfigReference(receiver, RuntimeImport),
-		"SetProviderConfigReference":          method.NewSetProviderConfigReference(receiver, RuntimeImport),
-		"SetWriteConnectionSecretToReference": method.NewSetWriteConnectionSecretToReference(receiver, RuntimeImport),
-		"GetWriteConnectionSecretToReference": method.NewGetWriteConnectionSecretToReference(receiver, RuntimeImport),
-		"SetPublishConnectionDetailsTo":       method.NewSetPublishConnectionDetailsTo(receiver, RuntimeImport),
-		"GetPublishConnectionDetailsTo":       method.NewGetPublishConnectionDetailsTo(receiver, RuntimeImport),
-		"SetManagementPolicies":               method.NewSetManagementPolicies(receiver, RuntimeImport),
-		"GetManagementPolicies":               method.NewGetManagementPolicies(receiver, RuntimeImport),
-		"SetDeletionPolicy":                   method.NewSetDeletionPolicy(receiver, RuntimeImport),
-		"GetDeletionPolicy":                   method.NewGetDeletionPolicy(receiver, RuntimeImport),
+		"SetConditions":                 method.NewSetConditions(receiver, RuntimeImport),
+		"GetCondition":                  method.NewGetCondition(receiver, RuntimeImport),
+		"GetProviderConfigReference":    method.NewGetProviderConfigReference(receiver, RuntimeImport),
+		"SetProviderConfigReference":    method.NewSetProviderConfigReference(receiver, RuntimeImport),
+		"SetPublishConnectionDetailsTo": method.NewSetPublishConnectionDetailsTo(receiver, RuntimeImport),
+		"GetPublishConnectionDetailsTo": method.NewGetPublishConnectionDetailsTo(receiver, RuntimeImport),
+		"SetManagementPolicies":         method.NewSetManagementPolicies(receiver, RuntimeImport),
+		"GetManagementPolicies":         method.NewGetManagementPolicies(receiver, RuntimeImport),
 	}
 
 	err := generate.WriteMethods(p, methods, filepath.Join(filepath.Dir(p.GoFiles[0]), filename),
@@ -219,28 +212,4 @@ func GenerateProviderConfigUsageList(filename, header string, p *packages.Packag
 	)
 
 	return errors.Wrap(err, "cannot write provider config usage list methods")
-}
-
-// GenerateReferences generates reference resolver calls.
-func GenerateReferences(filename, header string, p *packages.Package) error {
-	receiver := "mg"
-	comm := comments.In(p)
-
-	methods := method.Set{
-		"ResolveReferences": method.NewResolveReferences(types.NewTraverser(comm), receiver, ClientImport, ReferenceImport),
-	}
-
-	err := generate.WriteMethods(p, methods, filepath.Join(filepath.Dir(p.GoFiles[0]), filename),
-		generate.WithHeaders(header),
-		generate.WithImportAliases(map[string]string{
-			ClientImport:    ClientAlias,
-			ReferenceImport: ReferenceAlias,
-		}),
-		generate.WithMatcher(match.AllOf(
-			match.Managed(),
-			match.DoesNotHaveMarker(comm, DisableMarker, "false")),
-		),
-	)
-
-	return errors.Wrap(err, "cannot write reference resolver methods")
 }

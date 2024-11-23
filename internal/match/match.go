@@ -36,10 +36,10 @@ func Managed() Object {
 			fields.IsTypeMeta().And(fields.IsEmbedded()),
 			fields.IsObjectMeta().And(fields.IsEmbedded()),
 			fields.IsSpec().And(fields.HasFieldThat(
-				fields.IsResourceSpec().And(fields.IsEmbedded()),
+				fields.IsManagedSpec().And(fields.IsEmbedded()),
 			)),
 			fields.IsStatus().And(fields.HasFieldThat(
-				fields.IsResourceStatus().And(fields.IsEmbedded()),
+				fields.IsManagedStatus().And(fields.IsEmbedded()),
 			)),
 		)
 	}
@@ -55,10 +55,10 @@ func ManagedList() Object {
 				fields.IsTypeMeta().And(fields.IsEmbedded()),
 				fields.IsObjectMeta().And(fields.IsEmbedded()),
 				fields.IsSpec().And(fields.HasFieldThat(
-					fields.IsResourceSpec().And(fields.IsEmbedded()),
+					fields.IsManagedSpec().And(fields.IsEmbedded()),
 				)),
 				fields.IsStatus().And(fields.HasFieldThat(
-					fields.IsResourceStatus().And(fields.IsEmbedded()),
+					fields.IsManagedStatus().And(fields.IsEmbedded()),
 				)),
 			)),
 		)

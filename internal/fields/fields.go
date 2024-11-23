@@ -30,8 +30,8 @@ const (
 	NameSpec                 = "Spec"
 	NameSpecTemplate         = "SpecTemplate"
 	NameStatus               = "Status"
-	NameResourceSpec         = "ResourceSpec"
-	NameResourceStatus       = "ResourceStatus"
+	NameManagedSpec          = "ManagedSpec"
+	NameManagedStatus        = "ManagedStatus"
 	NameProviderConfigSpec   = "ProviderConfigSpec"
 	NameProviderConfigStatus = "ProviderConfigStatus"
 	NameProviderConfigUsage  = "ProviderConfigUsage"
@@ -46,8 +46,8 @@ const (
 	TypeSuffixSpec                 = NameSpec
 	TypeSuffixSpecTemplate         = NameSpecTemplate
 	TypeSuffixStatus               = NameStatus
-	TypeSuffixResourceSpec         = "github.com/crossplane/crossplane-runtime/apis/common/v1.ResourceSpec"
-	TypeSuffixResourceStatus       = "github.com/crossplane/crossplane-runtime/apis/common/v1.ResourceStatus"
+	TypeSuffixManagedSpec          = "github.com/crossplane/crossplane-runtime/apis/common/v1.ManagedSpec"
+	TypeSuffixManagedStatus        = "github.com/crossplane/crossplane-runtime/apis/common/v1.ManagedStatus"
 	TypeSuffixProviderConfigSpec   = "github.com/crossplane/crossplane-runtime/apis/common/v1.ProviderConfigSpec"
 	TypeSuffixProviderConfigStatus = "github.com/crossplane/crossplane-runtime/apis/common/v1.ProviderConfigStatus"
 	TypeSuffixProviderConfigUsage  = "github.com/crossplane/crossplane-runtime/apis/common/v1.ProviderConfigUsage"
@@ -178,13 +178,13 @@ func IsSpecTemplate() Matcher { return IsTypeNamed(NameSpecTemplate, TypeSuffixS
 // be a Kubernetes resource status.
 func IsStatus() Matcher { return IsTypeNamed(NameStatus, TypeSuffixStatus) }
 
-// IsResourceSpec returns a Matcher that returns true if the supplied field
+// IsManagedSpec returns a Matcher that returns true if the supplied field
 // appears to be a Crossplane managed resource spec.
-func IsResourceSpec() Matcher { return IsTypeNamed(TypeSuffixResourceSpec, NameResourceSpec) }
+func IsManagedSpec() Matcher { return IsTypeNamed(TypeSuffixManagedSpec, NameManagedSpec) }
 
-// IsResourceStatus returns a Matcher that returns true if the supplied field
+// IsManagedStatus returns a Matcher that returns true if the supplied field
 // appears to be a Crossplane managed resource status.
-func IsResourceStatus() Matcher { return IsTypeNamed(TypeSuffixResourceStatus, NameResourceStatus) }
+func IsManagedStatus() Matcher { return IsTypeNamed(TypeSuffixManagedStatus, NameManagedStatus) }
 
 // IsProviderConfigSpec returns a Matcher that returns true if the supplied
 // field appears to be a Crossplane provider config spec.
