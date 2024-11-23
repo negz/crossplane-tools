@@ -28,6 +28,7 @@ const (
 	NameObjectMeta           = "ObjectMeta"
 	NameListMeta             = "ListMeta"
 	NameSpec                 = "Spec"
+	NameCrossplane           = "Crossplane"
 	NameSpecTemplate         = "SpecTemplate"
 	NameStatus               = "Status"
 	NameManagedSpec          = "ManagedSpec"

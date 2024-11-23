@@ -76,7 +76,7 @@ import runtime "example.org/runtime"
 
 // SetProviderConfigReference of this Type.
 func (t *Type) SetProviderConfigReference(r *runtime.Reference) {
-	t.Spec.ProviderConfigReference = r
+	t.Spec.Crossplane.ProviderConfigReference = r
 }
 `
 	f := jen.NewFilePath("pkg")
@@ -93,7 +93,7 @@ import runtime "example.org/runtime"
 
 // GetProviderConfigReference of this Type.
 func (t *Type) GetProviderConfigReference() *runtime.Reference {
-	return t.Spec.ProviderConfigReference
+	return t.Spec.Crossplane.ProviderConfigReference
 }
 `
 	f := jen.NewFilePath("pkg")
@@ -110,7 +110,7 @@ import runtime "example.org/runtime"
 
 // SetPublishConnectionDetailsTo of this Type.
 func (t *Type) SetPublishConnectionDetailsTo(r *runtime.PublishConnectionDetailsTo) {
-	t.Spec.PublishConnectionDetailsTo = r
+	t.Spec.Crossplane.PublishConnectionDetailsTo = r
 }
 `
 	f := jen.NewFile("pkg")
@@ -127,7 +127,7 @@ import runtime "example.org/runtime"
 
 // GetPublishConnectionDetailsTo of this Type.
 func (t *Type) GetPublishConnectionDetailsTo() *runtime.PublishConnectionDetailsTo {
-	return t.Spec.PublishConnectionDetailsTo
+	return t.Spec.Crossplane.PublishConnectionDetailsTo
 }
 `
 	f := jen.NewFile("pkg")
@@ -144,7 +144,7 @@ import runtime "example.org/runtime"
 
 // SetManagementPolicies of this Type.
 func (t *Type) SetManagementPolicies(r runtime.ManagementPolicies) {
-	t.Spec.ManagementPolicies = r
+	t.Spec.Crossplane.ManagementPolicies = r
 }
 `
 	f := jen.NewFilePath("pkg")
@@ -161,7 +161,7 @@ import runtime "example.org/runtime"
 
 // GetManagementPolicies of this Type.
 func (t *Type) GetManagementPolicies() runtime.ManagementPolicies {
-	return t.Spec.ManagementPolicies
+	return t.Spec.Crossplane.ManagementPolicies
 }
 `
 	f := jen.NewFilePath("pkg")

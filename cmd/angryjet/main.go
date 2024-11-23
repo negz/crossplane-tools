@@ -62,7 +62,7 @@ func main() {
 	var (
 		app = kingpin.New(filepath.Base(os.Args[0]), "Generates Crossplane API type methods.").DefaultEnvars()
 
-		methodsets          = app.Command("generate-methodsets", "Generate a Crossplane method sets.")
+		methodsets          = app.Command("generate-methodsets", "Generate Crossplane method sets.")
 		headerFile          = methodsets.Flag("header-file", "The contents of this file will be added to the top of all generated files.").ExistingFile()
 		filenameManaged     = methodsets.Flag("filename-managed", "The filename of generated managed resource files.").Default("zz_generated.managed.go").String()
 		filenameManagedList = methodsets.Flag("filename-managed-list", "The filename of generated managed list resource files.").Default("zz_generated.managedlist.go").String()

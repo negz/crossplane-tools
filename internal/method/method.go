@@ -104,7 +104,7 @@ func NewSetProviderConfigReference(receiver, runtime string) New {
 	return func(f *jen.File, o types.Object) {
 		f.Commentf("SetProviderConfigReference of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetProviderConfigReference").Params(jen.Id("r").Op("*").Qual(runtime, "Reference")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("ProviderConfigReference").Op("=").Id("r"),
+			jen.Id(receiver).Dot(fields.NameSpec).Dot(fields.NameCrossplane).Dot("ProviderConfigReference").Op("=").Id("r"),
 		)
 	}
 }
@@ -115,7 +115,7 @@ func NewGetProviderConfigReference(receiver, runtime string) New {
 	return func(f *jen.File, o types.Object) {
 		f.Commentf("GetProviderConfigReference of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetProviderConfigReference").Params().Op("*").Qual(runtime, "Reference").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("ProviderConfigReference")),
+			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot(fields.NameCrossplane).Dot("ProviderConfigReference")),
 		)
 	}
 }
@@ -127,7 +127,7 @@ func NewSetPublishConnectionDetailsTo(receiver, runtime string) New {
 	return func(f *jen.File, o types.Object) {
 		f.Commentf("SetPublishConnectionDetailsTo of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetPublishConnectionDetailsTo").Params(jen.Id("r").Op("*").Qual(runtime, "PublishConnectionDetailsTo")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("PublishConnectionDetailsTo").Op("=").Id("r"),
+			jen.Id(receiver).Dot(fields.NameSpec).Dot(fields.NameCrossplane).Dot("PublishConnectionDetailsTo").Op("=").Id("r"),
 		)
 	}
 }
@@ -139,7 +139,7 @@ func NewGetPublishConnectionDetailsTo(receiver, runtime string) New {
 	return func(f *jen.File, o types.Object) {
 		f.Commentf("GetPublishConnectionDetailsTo of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetPublishConnectionDetailsTo").Params().Op("*").Qual(runtime, "PublishConnectionDetailsTo").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("PublishConnectionDetailsTo")),
+			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot(fields.NameCrossplane).Dot("PublishConnectionDetailsTo")),
 		)
 	}
 }
@@ -150,7 +150,7 @@ func NewSetManagementPolicies(receiver, runtime string) New {
 	return func(f *jen.File, o types.Object) {
 		f.Commentf("SetManagementPolicies of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("SetManagementPolicies").Params(jen.Id("r").Qual(runtime, "ManagementPolicies")).Block(
-			jen.Id(receiver).Dot(fields.NameSpec).Dot("ManagementPolicies").Op("=").Id("r"),
+			jen.Id(receiver).Dot(fields.NameSpec).Dot(fields.NameCrossplane).Dot("ManagementPolicies").Op("=").Id("r"),
 		)
 	}
 }
@@ -161,7 +161,7 @@ func NewGetManagementPolicies(receiver, runtime string) New {
 	return func(f *jen.File, o types.Object) {
 		f.Commentf("GetManagementPolicies of this %s.", o.Name())
 		f.Func().Params(jen.Id(receiver).Op("*").Id(o.Name())).Id("GetManagementPolicies").Params().Qual(runtime, "ManagementPolicies").Block(
-			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot("ManagementPolicies")),
+			jen.Return(jen.Id(receiver).Dot(fields.NameSpec).Dot(fields.NameCrossplane).Dot("ManagementPolicies")),
 		)
 	}
 }
