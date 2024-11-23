@@ -17,7 +17,6 @@ limitations under the License.
 package main
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -81,7 +80,7 @@ func main() {
 
 	header := ""
 	if *headerFile != "" {
-		h, err := ioutil.ReadFile(*headerFile)
+		h, err := os.ReadFile(*headerFile)
 		kingpin.FatalIfError(err, "cannot read header file %s", *headerFile)
 		header = string(h)
 	}
